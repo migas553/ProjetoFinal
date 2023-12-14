@@ -1,0 +1,71 @@
+@startuml Farmacia
+
+class Product{
+    id : PK
+    Name : string
+    Category : FK
+    Description : string
+    price : decimal
+    stock : int    
+}
+
+class Category{
+    id: PK
+    name: string
+}
+
+class Client{
+    id: PK
+    name: string
+    email: string
+    nif: int
+    order: FK
+    
+}
+class Order{
+    id: PK
+    State: list
+    Traking: int
+    Adress: str
+    
+}
+class ClientOrder{
+    Client: FK
+    Order: FK
+}
+
+class Cart{
+    id: PK
+    idUser: FK
+    Product: FK
+    Quantity: int
+}
+
+class CartProduct{
+    idCart: FK
+    idProduct: FK
+}
+
+class Payment{
+    id: PK
+    idOrder: FK
+    cardNumber: int
+    expDate: date
+    cvv: int
+    cardName: str
+
+} 
+
+Order "1" -- "n" Payment
+Product "1" -- "n" CartProduct
+Product "n" -- "1" Category
+Cart "1" -- "n" CartProduct
+Cart "1" -- "n" Client
+Client "1" -- "n" ClientOrder
+ClientOrder "1" -- "n" Order
+
+@enduml
+
+
+
+

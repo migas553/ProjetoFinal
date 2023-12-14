@@ -16,7 +16,13 @@ Porquê ambiente virtual?
 - **Portabilidade**: Facilita a exportação e reprodução do ambiente de desenvolvimento em outros sistemas ou máquinas.
 
 
+Para criar o virtual environment:
+```bash
+python -m venv venv
+```
+
 Para activar o virtual environment usar:
+
 
 ```bash
 venv\Scripts\activate

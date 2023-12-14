@@ -73,3 +73,30 @@ Vamos dar uma olhada nos principais arquivos e diretórios criados:
     - **`settings.py`**: Configurações principais do projeto (base de dados, aplicações, etc.).
     - **`urls.py`**: Mapeamento das URLs do projeto para as views.
     - **`asgi.py` e `wsgi.py`**: Configurações para servidores web.
+
+Para verificar se temos o django a funcionar precisamos de:
+
+### Iniciar a base de dados
+
+A informação da base de dados encontra-se no ficheiro **`settings.py`**
+Neste primeiro caso vamos manter a base de dados padrão, SQLlite
+Para a sua inicialização e futuros updates usamos :
+
+```bash
+python manage.py migrate
+```
+### Iniciar servidor
+
+Na linha de comandos usamos:
+```bash
+python manage.py runserver
+```
+Se tudo estiver em condições o servidor vai iniciar e podemos testar no seguinte endereço:
+```bash
+http://127.0.0.1:8000/
+```
+Se tudo correr bem vai ser apresentado uma mensage, de boas vindas.
+Para parar o servidor na linha de comandos usamos a combinação de **CTRL + C**
+
+
+

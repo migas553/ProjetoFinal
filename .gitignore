@@ -1,0 +1,61 @@
+# venv (ambiente virtual)
+venv/
+
+# Arquivos de configuração do sistema
+*.pyc
+*.pyo
+__pycache__/
+
+# Arquivos de ambiente
+.env
+
+# Arquivos de mídia
+media/
+
+# Arquivos de log
+log/
+
+# Banco de dados SQLite (ou qualquer banco de dados que você esteja usando)
+*.sqlite3
+
+# Arquivos de configuração local
+local_settings.py
+
+# Arquivos de configuração IDE
+.idea/
+
+# Arquivos de cache
+__pycache__/
+.cache/
+
+# Arquivos temporários
+*.log
+*.swp
+
+# Arquivos de configuração do sistema
+.DS_Store
+Thumbs.db
+
+# Arquivos de compilação Python
+*.pyc
+*.pyo
+*.pyd
+__pycache__/
+
+# Dependências geradas
+__pycache__/
+*.pyc
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Jupyter Notebooks
+.ipynb_checkpoints/
+
+# Virtual environment
+venv/
+venv*/
+__pycache__/

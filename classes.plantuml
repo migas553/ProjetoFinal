@@ -6,7 +6,13 @@ class Product{
     Category : FK
     Description : string
     price : decimal
-    stock : int    
+    stock : int 
+    Crud()
+    ListProducts()
+    Sort()
+    
+
+
 }
 
 class Category{

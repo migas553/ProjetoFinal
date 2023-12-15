@@ -2,7 +2,7 @@
 Projeto final para Fundamentos de Programacão
 
 ***
-# Users APP
+# Products APP
 Para criar uma app em django utiliza-se o seguinte comando:
 
 ```bash
@@ -43,6 +43,8 @@ Nesta app, vai ser necessario criar os modelos, ou as nossas classes:
 class Category(models.Model):
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=100, null=False)
+    def __str__(self):
+        return self.name
 
 class Product(models.Model):
     id = models.AutoField(primary_key=True)
@@ -51,5 +53,14 @@ class Product(models.Model):
     description = models.CharField(max_length=100, null=False)
     price = models.DecimalField(max_digits=10, decimal_places=2,validators=[MinValueValidator(0)])
     stock = models.IntegerField(validators=[MinValueValidator(0)])
+    photo = models.ImageField(upload_to='product_photos/', null=True, blank=True)
     timestamp = models.DateTimeField(auto_now_add=True)
 ```
+Registar os modelos no ficheiro **`admin.py`**:
+
+```python
+admin.site.register(Category)
+admin.site.register(Product)
+```
+
+

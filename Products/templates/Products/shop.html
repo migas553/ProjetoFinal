@@ -5,9 +5,9 @@
     <div class="filters w-full lg:w-1/4">
         <h3 class="mb-3 text-xl uppercase">Pesquisa</h3>
 
-        <form>
+        <form method='get' action='.'>
             <div class="flex">
-                <input type="text" class="p-4 bg-gray-100 border-0" placeholder="Search...">
+                <input type="text" name = 'query' class="p-4 bg-gray-100 border-0" placeholder="Search...">
 
                 <button class="p-4 bg-gray-100 border-0">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -20,10 +20,11 @@
         <h3 class="mt-6 mb-3 text-xl uppercase">Categorias</h3>
 
         <ul class="space-y-2">
-            <li><a href="#" class="text-green-500">Todas</a></li>
-            <li><a href="#" class="text-gray-500">Beleza</a></li>
-            <li><a href="#" class="text-gray-500">Higiene Oral</a></li>
-            <li><a href="#" class="text-gray-500">Suplementos</a></li>
+            <li><a href="{% url 'shop' %}" class="{% if not active_category %}text-green-500{% else %}text-gray-500{% endif %}">Todos</a></li>
+            {% for category in categories %}
+                <li><a href="{% url 'shop' %}?category={{category.slug}}" class="{% if category.slug == active_category %}text-green-500{% else %}text-gray-500{% endif %}">{{ category.name }}</a></li>
+            {% endfor %}
+
         </ul>
     </div>
 
@@ -31,23 +32,7 @@
     {% comment %} <div class="products flex items-center flex-wrap"> {% endcomment %}
     
         {% for product in products %}
-        <div class="w-full md:w-1/3 xl:1/6 p-6">
-            <a href="#">
-                <img class="rounded-xl hover:shadow-lg" src="{{ product.photo }}">
-            </a>
-
-            <div class="pt-3 flex items-center justify-between">
-                <a href="#">{{ product.name }}</a>
-
-                <a href="#" class="text-green-500 hover:text-green-800">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
-                    </svg>
-                </a>
-            </div>
-
-            <p class="pt-1 text-gray-400">{{ product.price }}€</p>
-        </div>
+            {%include 'Products/partials/grid.html'%}
         {% endfor %}
 
     </div>

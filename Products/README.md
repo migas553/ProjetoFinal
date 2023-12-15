@@ -55,6 +55,9 @@ class Product(models.Model):
     stock = models.IntegerField(validators=[MinValueValidator(0)])
     photo = models.ImageField(upload_to='product_photos/', null=True, blank=True)
     timestamp = models.DateTimeField(auto_now_add=True)
+    
+    def __str__(self):
+        return self.name
 ```
 Registar os modelos no ficheiro **`admin.py`**:
 

@@ -11,7 +11,7 @@
         <nav class="border-b border-gray-300">
             <div class="max-w-6xl mx-auto py-2 px-6 xl:px-0 flex items-center justify-between">
                 <div class="menu-left flex items-center space-x-6">
-                    <a href="#" class="py-4 text-lg text-green-500 font-semibold">Farmacia</a>
+                    <a href="{% url 'frontpage' %}" class="py-4 text-lg text-green-500 font-semibold">Farmacia</a>
 
                     <ul class="flex items-center space-x-4">
                         <li><a href="#">Beleza</a></li>
@@ -48,7 +48,7 @@
                     <h2 class="mb-5 uppercase text-lg">Informação</h2>
                     <ul>  
                         <li><a href="#" class="text-gray-700 hover:text-green-800">Sobre nós</a></li>
-                        <li><a href="#" class="text-gray-700 hover:text-green-800">Envio e entregas</a></li>
+                        <li><a href="{% url 'product' %}" class="text-gray-700 hover:text-green-800">Envio e entregas</a></li>
                         <li><a href="#" class="text-gray-700 hover:text-green-800">Pagamento e segurança</a></li>
                         <li><a href="#" class="text-gray-700 hover:text-green-800">Contacte-nos</a></li>
                     </ul>    

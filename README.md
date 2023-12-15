@@ -16,7 +16,10 @@ Porquê ambiente virtual?
 - **Portabilidade**: Facilita a exportação e reprodução do ambiente de desenvolvimento em outros sistemas ou máquinas.
 
 
-Para criar o virtual environment:
+### Para criar o virtual environment:
+
+
+
 ```bash
 python -m venv venv
 ```
@@ -28,22 +31,37 @@ Para activar o virtual environment usar:
 venv\Scripts\activate
 ```
 
-Com o ambiente virtual instalado e **activado**, começar por instalar dependencias:
+**Caso de erro** ao executar o comando anterior, existe a possibilidade de o windows não deixar executar scripts, para corrigir isso temos que abrir um terminal com previlegios de administrador e executar:
+```bash
+Set-ExecutionPolicy -ExecutionPolicy RemoteSigned 
+```
+
+***
+# Dependências:
+
+Agora existe 2 opções, instalar o django, ou caso exista um ficheiro de requirements instalar apartir dai.
+
+### Instalar só django
+Com o ambiente virtual instalado e **activado**:
 
 ```bash
 pip install django
 ```
 
-Para gravar os requesitos do projecto:
-
-```bash
-pip freeze > requirements.txt
-```
+### Dependencias apartir de um ficheiro 
 
 Para instalar as dependencias apartir do ficheiro:
 ```bash
 pip install -r requirements.txt
 ```
+
+Ao longo de um projecto é possivel que comecem a aumentar o numero de modulos adicionais, para os registar no ficheiro usa-se:
+
+```bash
+pip freeze > requirements.txt
+```
+
+
 
 # Iniciar o projeto em django:
 
@@ -91,6 +109,14 @@ Para a sua inicialização e futuros updates usamos :
 ```bash
 python manage.py migrate
 ```
+### Aceder ao painel admin
+
+Para aceder ao admin pannel e necessario criar uma conta:
+```bash
+python manage.py createsuperuser
+```
+
+
 ### Iniciar servidor
 
 Na linha de comandos usamos:
@@ -100,6 +126,8 @@ python manage.py runserver
 Se tudo estiver em condições o servidor vai iniciar e podemos testar no seguinte endereço:
 ```bash
 http://127.0.0.1:8000/
+#ou para pasta admin
+http://127.0.0.1:8000/admin
 ```
 Se tudo correr bem vai ser apresentado uma mensage, de boas vindas.
 Para parar o servidor na linha de comandos usamos a combinação de **CTRL + C**

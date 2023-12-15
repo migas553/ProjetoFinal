@@ -6,7 +6,11 @@ class Product{
     Category : FK
     Description : string
     price : decimal
-    stock : int    
+    stock : int
+    photo: img
+    timestamp: date
+    sort()
+    list()    
 }
 
 class Category{

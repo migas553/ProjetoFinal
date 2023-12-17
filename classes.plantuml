@@ -11,7 +11,10 @@ class Product{
     timestamp: date
     sort()
     list()    
-}
+    stock : int 
+    Crud()
+    ListProducts()
+    Sort()
 
 class Category{
     id: PK

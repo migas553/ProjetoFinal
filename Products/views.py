@@ -1,8 +1,9 @@
 from django.shortcuts import render, get_object_or_404
 from Products.models import Product, Category
+
 # Create your views here.
 def frontpage(request):
-    products = Product.objects.all()[0:6]
+    products = Product.objects.all()[:6]
     
     return render(request, 'Products/frontpage.html', {'products': products})
 
@@ -13,8 +14,8 @@ def shop(request):
     if active_category:
         products = products.filter(category__slug=active_category)
     
-    query = request.GET.get('query', '')
-    if query:
+    
+    if query := request.GET.get('query', ''):
         products = products.filter(name__icontains=query)
     context = {
         'products': products,

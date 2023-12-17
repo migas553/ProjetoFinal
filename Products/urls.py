@@ -1,8 +1,14 @@
 from django.conf import settings
 from django.conf.urls.static import static
+from django.urls import path
+from .views import *
+
 
 urlpatterns = [
-    # Your other URL patterns here
+    path('',frontpage, name='frontpage'),
+    path('shop/',shop, name='shop'),
+    path('shop/<slug:slug>', product, name='product'),
+
 ]
 
 if settings.DEBUG:

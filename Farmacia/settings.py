@@ -26,7 +26,8 @@ SECRET_KEY = 'django-insecure-1(c3-i5%my(y6)==1d&3b5-!8!=hm-z-ts)fvui5z1ek26f5yr
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
+SESSION_COOKIE_AGE = 90000
+CART_SESSION_ID= 'cart'
 
 # Application definition
 
@@ -39,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'Products',
     'UsersManagement',
+    'cart',
 
 ]
 
@@ -65,6 +67,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'cart.context_processors.cart',
             ],
         },
     },

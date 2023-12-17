@@ -15,9 +15,6 @@ def SignUp(request):
     return render(request, 'UsersManagement/signup.html', {'form' : form})
 
 # Frontpage temporaria
-def frontpage(request):    
-    return render(request, 'UsersManagement/frontpage.html')
-
 
 @login_required
 def my_account(request):

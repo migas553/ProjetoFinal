@@ -8,13 +8,9 @@ class Product{
     price : decimal
     stock : int
     photo: img
-    timestamp: date
-    sort()
-    list()    
+    timestamp: date   
     stock : int 
-    Crud()
-    ListProducts()
-    Sort()
+
 
 class Category{
     id: PK

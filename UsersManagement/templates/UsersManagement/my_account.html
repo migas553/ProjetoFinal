@@ -22,23 +22,23 @@
 
     {% if address %}
 
-        <div class="mb-6">
+        <div>
             <strong>Enderesso: </strong>{{ address.addressLine1 }}<br>
             <strong>Enderesso: </strong>{{ address.addressLine2 }}<br>
             <strong>Código Postal: </strong>{{ address.postal_code }}<br>
             <strong>Cidade: </strong>{{ address.city }}<br>
             <strong>Nif: </strong>{{ address.nif }}<br>
-            <strong>Telefone: </strong>{{ address.phone }}<br>      
-
+            <strong>Telefone: </strong>{{ address.phone }}<br>    
         </div>
 
-        <a href=" {% url 'edit_my_account' %} " class="inline-block mt-4 py-2 px-6 rounded-xl text-white bg-green-600">Editar morada</a>
+        <a href=" {% url 'edit_my_address' %} " class="inline-block mt-4 py-2 px-6 rounded-xl text-white bg-green-600">Editar morada</a><br>
     {% else %}
         <p >Não tem morada de entrega definida.</p>
-        <a href=" {% url 'edit_my_address' %} " class="inline-block mt-4 py-2 px-6 rounded-xl text-white bg-green-600">Adicionar morada</a>        
+        <a href=" {% url 'edit_my_address' %} " class="inline-block mt-4 py-2 px-6 rounded-xl text-white bg-green-600">Adicionar morada</a><br>
     {% endif %}
-        
-
+    <br>
+    <hr>
+    
     <h2 class="my-6 text-xl">My orders</h2>
 
     <div class="w-full mb-6 p-6 flex flex-wrap bg-gray-100 rounded-xl">

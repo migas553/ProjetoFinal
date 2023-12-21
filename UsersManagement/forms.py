@@ -19,12 +19,12 @@ class SignUpForm(UserCreationForm):
             'password2',
             ]
 class AddressForm(forms.ModelForm):
-    addressLine1 = forms.CharField(max_length=100, required=True)
-    addressLine2 = forms.CharField(max_length=100, required=False)
-    postal_code = forms.CharField(max_length=8, required=True)
-    city = forms.CharField(max_length=100, required=True)
-    nif = forms.CharField(max_length=9, required=False)
-    phone = forms.CharField(max_length=9, required=True)
+    addressLine1 = forms.CharField(max_length=100, required=True, initial='')
+    addressLine2 = forms.CharField(max_length=100, required=False, initial='')
+    postal_code = forms.CharField(max_length=8, required=True, initial='')
+    city = forms.CharField(max_length=100, required=True, initial='')
+    nif = forms.CharField(max_length=9, required=False, initial='')
+    phone = forms.CharField(max_length=9, required=True, initial='')
     
     class Meta:
         model = Address

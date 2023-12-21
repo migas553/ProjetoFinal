@@ -4,7 +4,9 @@
 
 {% block content %}
 <div class="max-w-6xl mx-auto p-6">
-    <h1 class="mb-5 text-3xl">Informação</h1>
+    <h1 class="mb-5 text-3xl">Minha Conta</h1>
+    <h2 class="my-6 text-xl">Dados Pessoais</h2>
+
 
     <div class="mb-6">
         <strong>Nome: </strong>{{ request.user.get_full_name }}<br>
@@ -15,6 +17,27 @@
     </div>
 
     <hr>
+
+    <h2 class="my-6 text-xl">Morada Entrega</h2>
+
+    {% if address %}
+
+        <div class="mb-6">
+            <strong>Enderesso: </strong>{{ address.addressLine1 }}<br>
+            <strong>Enderesso: </strong>{{ address.addressLine2 }}<br>
+            <strong>Código Postal: </strong>{{ address.postal_code }}<br>
+            <strong>Cidade: </strong>{{ address.city }}<br>
+            <strong>Nif: </strong>{{ address.nif }}<br>
+            <strong>Telefone: </strong>{{ address.phone }}<br>      
+
+        </div>
+
+        <a href=" {% url 'edit_my_account' %} " class="inline-block mt-4 py-2 px-6 rounded-xl text-white bg-green-600">Editar morada</a>
+    {% else %}
+        <p >Não tem morada de entrega definida.</p>
+        <a href=" {% url 'edit_my_address' %} " class="inline-block mt-4 py-2 px-6 rounded-xl text-white bg-green-600">Adicionar morada</a>        
+    {% endif %}
+        
 
     <h2 class="my-6 text-xl">My orders</h2>
 

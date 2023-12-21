@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .forms import SignUpForm
+from .forms import *
 from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
 def SignUp(request):
@@ -21,13 +21,18 @@ def frontpage(request):
 
 @login_required
 def my_account(request):
-    return render(request, 'UsersManagement/my_account.html')
+    address = request.user.address.first()
+    return render(request, 'UsersManagement/my_account.html', {'address' : address})
+
+
+
 
 
 
 @login_required
 def edit_my_account(request):
     if request.method =='POST':
+        
         user = request.user
         user.first_name = request.POST.get('first_name')
         user.last_name = request.POST.get('last_name')
@@ -37,3 +42,20 @@ def edit_my_account(request):
         return redirect('my_account')
         
     return render(request, 'UsersManagement/edit_my_account.html')
+
+
+@login_required
+def edit_my_address(request):
+    if request.method =='POST':
+        form = AddressForm(request.POST, instance=request.user.address.first())
+            
+        if form.is_valid():
+            address = form.save(commit=False)
+            address.user = request.user
+            address.save()
+            return redirect('my_account')
+        else:
+            print(form.errors)
+    else:
+        form = AddressForm(instance=request.user.address.first())
+    return render(request, 'UsersManagement/edit_my_address.html', {'form' : form})

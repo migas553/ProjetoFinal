@@ -10,13 +10,13 @@ __pycache__/
 .env
 
 # Arquivos de mídia
-media/
+# media/
 
 # Arquivos de log
 log/
 
 # Banco de dados SQLite (ou qualquer banco de dados que você esteja usando)
-*.sqlite3
+# *.sqlite3
 
 # Arquivos de configuração local
 local_settings.py

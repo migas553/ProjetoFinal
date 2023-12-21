@@ -59,3 +59,4 @@ __pycache__/
 venv/
 venv*/
 __pycache__/
+db.sqlite3

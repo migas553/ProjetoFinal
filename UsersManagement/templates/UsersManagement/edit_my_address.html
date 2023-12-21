@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+
+{% block title %}Editar morada{% endblock %}
+
+{% block content %}
+<div class="max-w-6xl mx-auto p-6">
+    <h1 class="mb-5 text-3xl">Editar Morada</h1>
+
+    <form method="post" action="." class="space-y-3">
+        {% csrf_token %}
+        
+        <div>
+            <label>Endereço</label>
+            <input name="addressLine1" value="{{ form.addressLine1.value }}" type="text" required class="w-full mt-2 py-4 px-6 bg-gray-100 rounded-xl">
+        </div>
+
+        <div>
+            <label>Endereço</label>
+            <input name="addressLine2" value="{{ form.addressLine2.value }}" type="text" class="w-full mt-2 py-4 px-6 bg-gray-100 rounded-xl">
+        </div>
+
+        <div>
+            <label>Codigo Postal</label>
+            <input name="postal_code" value="{{ form.postal_code.value }}" type="text" class="w-full mt-2 py-4 px-6 bg-gray-100 rounded-xl">
+        </div>
+
+        <div>
+            <label>Cidade</label>
+            <input name="city" value="{{ form.city.value }}" type="text" class="w-full mt-2 py-4 px-6 bg-gray-100 rounded-xl">
+        </div>
+
+        <div>
+            <label>nif</label>
+            <input name="nif" value="{{ form.nif.value }}" type="text" class="w-full mt-2 py-4 px-6 bg-gray-100 rounded-xl">
+        </div>
+
+        <div>
+            <label>Telefone</label>
+            <input name="phone" value="{{ form.phone.value }}" type="text" class="w-full mt-2 py-4 px-6 bg-gray-100 rounded-xl">
+        </div>
+
+        {% if form.errors %}
+        {% for field in form %}
+            {% for error in field.errors %}
+                <div class="p-6 bg-red-200 text-red-800 rounded-xl">
+                    <p>{{ error|escape }} - {{ field.name }}</p>
+                </div>
+            {% endfor %}
+        {% endfor %}
+
+        {% for error in form.non_field_errors %}
+                <div class="p-6 bg-red-200 text-red-800 rounded-xl">
+                    <p>{{ error|escape }}</p>
+                </div>
+        {% endfor %}
+        {% endif %}
+
+        <div>
+            <button class="py-4 px-6 rounded-xl text-white bg-purple-500">Alterar</button>
+        </div>
+    </form>
+</div>
+{% endblock %}

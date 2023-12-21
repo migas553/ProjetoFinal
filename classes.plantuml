@@ -1,7 +1,7 @@
 @startuml Farmacia
 
 class Product{
-    id : PK
+    id  PK
     Name : string
     Category : FK
     Description : string
@@ -63,7 +63,7 @@ class Payment{
 
 } 
 
-Order "1" -- "n" Payment
+Order "1" -- "*" Payment
 Product "1" -- "n" CartProduct
 Product "n" -- "1" Category
 Cart "1" -- "n" CartProduct

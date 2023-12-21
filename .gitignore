@@ -10,7 +10,7 @@ __pycache__/
 .env
 
 # Arquivos de mídia
-media/
+# media/
 
 # Arquivos de log
 log/

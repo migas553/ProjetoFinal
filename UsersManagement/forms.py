@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
+from .models import Address
 
 class SignUpForm(UserCreationForm):
     first_name = forms.CharField(max_length=50, required=True)
@@ -16,4 +17,22 @@ class SignUpForm(UserCreationForm):
             'email',
             'password1',
             'password2',
+            ]
+class AddressForm(forms.ModelForm):
+    addressLine1 = forms.CharField(max_length=100, required=True, initial='')
+    addressLine2 = forms.CharField(max_length=100, required=False, initial='')
+    postal_code = forms.CharField(max_length=8, required=True, initial='')
+    city = forms.CharField(max_length=100, required=True, initial='')
+    nif = forms.CharField(max_length=9, required=False, initial='')
+    phone = forms.CharField(max_length=9, required=True, initial='')
+    
+    class Meta:
+        model = Address
+        fields = [
+            'addressLine1',
+            'addressLine2',
+            'postal_code',
+            'city',
+            'nif',
+            'phone',
             ]

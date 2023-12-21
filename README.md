@@ -132,7 +132,9 @@ http://127.0.0.1:8000/admin
 Se tudo correr bem vai ser apresentado uma mensage, de boas vindas.
 Para parar o servidor na linha de comandos usamos a combinação de **CTRL + C**
 
-
-
-
+## Iniciar suoeruser
+Para aceder ao admin pannel e necessario criar uma conta:
+```bash
+python manage.py createsuperuser
+```
 

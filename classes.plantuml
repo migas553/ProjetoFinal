@@ -6,14 +6,15 @@ class Product{
     Category : FK
     Description : string
     price : decimal
+    stock : int
+    photo: img
+    timestamp: date
+    sort()
+    list()    
     stock : int 
     Crud()
     ListProducts()
     Sort()
-    
-
-
-}
 
 class Category{
     id: PK

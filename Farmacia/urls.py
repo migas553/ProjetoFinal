@@ -20,9 +20,6 @@ from Products.views import *
 from UsersManagement.views import *
 
 urlpatterns = [
-    path('',frontpage, name='frontpage'),
-    path('shop/',shop, name='shop'),
-    path('shop/<slug:slug>', product, name='product'),
     path('admin/', admin.site.urls),
     path('',include('Products.urls')),
     path('',include('UsersManagement.urls')),

@@ -1,4 +1,5 @@
 from django.shortcuts import render, get_object_or_404, redirect
+from django.urls import reverse
 from .models import *
 from .forms import *    
 from django.contrib.admin.views.decorators import staff_member_required  
@@ -69,14 +70,15 @@ def add_category(request):
         if form.is_valid():
             form.save()
             return redirect('show_products')
+        else:
+            print(form.errors)  # print form errors to the console
     else:
         form = AddCategoryForm()
     return render(request, 'Products/add_category.html', {'form': form})
 
-
 @staff_member_required
 def edit_category(request, slug):
-    category = get_object_or_404(Category,slug=slug)
+    category = get_object_or_404(Category, slug=slug)
     if request.method == 'POST':
         form = AddCategoryForm(request.POST, instance=category)
         if form.is_valid():
@@ -84,14 +86,14 @@ def edit_category(request, slug):
             return redirect('show_products')
     else:
         form = AddCategoryForm(instance=category)
-    return render(request, 'Products/edit_category.html', {'form': form, 'category': category})
+    return render(request, 'Products/edit_category.html', {'form': form,'category': category})
 
 @staff_member_required
 def delete_category(request, slug):
     category = get_object_or_404(Category,slug=slug)
     if request.method == 'POST':
         category.delete()
-        return redirect('frontpage')
+        return redirect('show_products')
     return render(request, 'Products/delete_category.html', {'category': category})
 
 @staff_member_required

@@ -24,3 +24,4 @@ class Address(models.Model):
         verbose_name = 'Adress'
         verbose_name_plural = 'Adresses'
         ordering = ['id']
+        

@@ -47,9 +47,14 @@
         </ul>
     </div>
 
-    <div class="mb-3 products w-full lg:w-3/4 -mt-4 flex pl-6">
-    {% comment %} <div class="products flex items-center flex-wrap"> {% endcomment %}
-    {% comment %} <div class="max-w-6xl mx-auto flex flex-wrap items-start py-6 px-6 xl:px-0"> {% endcomment %}
+    <div class="mb-3 products w-full lg:w-3/4 pl-6">
+        <h3 class="mb-3 text-xl uppercase flex">Produtos 
+            <a href="{% url 'add_product' %}" class="ml-auto">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                </svg>
+            </a>
+        </h3>
         <div class="products w-full ">
             {% for product in products %}
                 {% include 'Products/partials/list.html' %}

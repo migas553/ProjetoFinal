@@ -6,8 +6,8 @@ from django.contrib.admin.views.decorators import staff_member_required
 # Create your views here.
 def frontpage(request):
     products = Product.objects.all()[0:6]
-    
-    return render(request, 'Products/frontpage.html', {'products': products})
+    categories = Category.objects.all()
+    return render(request, 'Products/frontpage.html', {'products': products,'categories': categories})
 
 def shop(request):
     products = Product.objects.all()

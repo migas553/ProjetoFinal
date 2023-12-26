@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Order, OrderProducts, Cart, CartProduct
 from Products.models import Product
+from UsersManagement.models import Address
 from django.contrib.auth.decorators import login_required
 
 
@@ -12,9 +13,24 @@ def cart(request):
     cart_total = sum([cart_product.product.price * cart_product.quantity for cart_product in cart_products])
     context = {'cart_products': cart_products, 'cart_total': cart_total}
     return render(request, 'Orders/cart.html', context)
-
+@login_required
 def checkout(request):
-    return render(request, 'Orders/checkout.html')
+    address = request.user.address.first()
+    cart = Cart.objects.get(user=request.user)
+    if cart:
+        cart_products = CartProduct.objects.filter(cart=cart)
+        cart_total = sum([cart_product.product.price * cart_product.quantity for cart_product in cart_products])
+        context = {'cart_products': cart_products, 'cart_total': cart_total, 'address': address}
+        return render(request, 'Orders/checkout.html', context)
+    
+    if request.method == 'POST':
+        address = Address.objects.get(id=request.POST['address'])
+        order = Order.objects.create(user=request.user, address=address)
+        cart_products = CartProduct.objects.filter(cart=cart)
+        for cart_product in cart_products:
+            OrderProducts.objects.create(order=order, product=cart_product.product, quantity=cart_product.quantity)
+        cart.delete()
+        return redirect('orders')
 
 @login_required
 def add_to_cart(request, product_slug):

@@ -95,26 +95,19 @@ def decrease_quantity(request, cart_product_id):
 @staff_member_required
 def show_orders(request):
     orders = Order.objects.all()
-    print(f"All orders: {orders}")  # Debug line
-
     status = request.GET.get('status', '')
-    print(f"Status: {status}")  # Debug line
-    
     if status:
         orders = orders.filter(status=status)
-    print(f"Orders after status filter: {orders}")  # Debug line
-
     query = request.GET.get('query', '')
     if query:
         orders = orders.filter(name__icontains=query)    
-    print(f"Orders after query filter: {orders}")  # Debug line
+ 
 
     active_status = request.GET.get('status', '')
     
-    # Get all distinct statuses
-    statuses = Order.objects.values('status').annotate(total=Count('status'))
-    print(f"Statuses: {statuses}")  # Debug line
 
+    statuses = Order.objects.values('status').annotate(total=Count('status'))
+    
     context = {'orders': orders, 'statuses': statuses, 'status': status, 'active_status': active_status}
     
     return render(request, 'Orders/show_orders.html', context)
@@ -129,9 +122,31 @@ def order_details(request, order_id):
 @staff_member_required
 def edit_order(request, order_id):
     order = get_object_or_404(Order, id=order_id)
-    form = OrderForm(request.POST or None, instance=order)
-    if form.is_valid():
-        form.save()
-        return redirect('show_orders')
-    context = {'form': form}
+    order_products = OrderProducts.objects.filter(order=order)
+    order_form = OrderForm(request.POST or None, instance=order)
+    if request.method == 'POST':
+        if order_form.is_valid():
+            order_form.save()
+            return redirect('show_orders')
+        else:
+            print(order_form.errors)
+            context = {'order': order, 'order_products': order_products, 'order_form': order_form}
+            return render(request, 'Orders/edit_order.html', context)
+    context = {'order': order, 'order_products': order_products, 'order_form': order_form}
     return render(request, 'Orders/edit_order.html', context)
+
+@staff_member_required
+def edit_shipping_address(request, order_id):
+    order = get_object_or_404(Order, id=order_id)
+    address = get_object_or_404(ShippingAddress, id=order.address.id)
+    address_form = ShippingAddressForm(request.POST or None, instance=address)
+    if request.method == 'POST':
+        if address_form.is_valid():
+            address_form.save()
+            return redirect('show_orders')
+        else:
+            print(address_form.errors)
+            context = {'order': order, 'address_form': address_form}
+            return render(request, 'Orders/edit_shipping_address.html', context)
+    context = {'order': order, 'address_form': address_form}
+    return render(request, 'Orders/edit_shipping_address.html', context)

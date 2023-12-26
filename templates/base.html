@@ -26,6 +26,11 @@
                                 class= "inline-block px-4 py-2 rounded-xl bg-green-500 text-white hover:bg-gray-200"
                                 >Editar Produtos</a></li>
                         {% endif %}
+                        {% if request.user.is_authenticated and request.user.is_staff %}
+                            <li><a href="{% url 'show_orders' %}" 
+                                class= "inline-block px-4 py-2 rounded-xl bg-green-500 text-white hover:bg-gray-200"
+                                >Ver encomendas</a></li>
+                        {% endif %}
                     </ul>
                 </div>
 

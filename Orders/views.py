@@ -3,8 +3,9 @@ from .models import Cart, CartProduct, ShippingAddress, Payment, Order, OrderPro
 from Products.models import Product
 from UsersManagement.models import Address
 from django.contrib.auth.decorators import login_required
+from django.contrib.admin.views.decorators import staff_member_required
 from .forms import OrderForm, ShippingAddressForm, PaymentForm
-
+from django.db.models import Count
 # Create your views here.
 @login_required
 def cart(request):
@@ -23,7 +24,6 @@ def checkout(request):
                 [cart_product.product.price * cart_product.quantity for cart_product in cart_products]
                 )
     address = request.user.address.first() 
-    
     if request.method == 'POST':
       
         if address_form.is_valid() and payment_form.is_valid():
@@ -91,3 +91,30 @@ def decrease_quantity(request, cart_product_id):
     elif cart_product.quantity == 1:
         cart_product.delete()
     return redirect('cart')
+
+@staff_member_required
+def show_orders(request):
+    orders = Order.objects.all()
+    print(f"All orders: {orders}")  # Debug line
+
+    status = request.GET.get('status', '')
+    print(f"Status: {status}")  # Debug line
+    
+    if status:
+        orders = orders.filter(status=status)
+    print(f"Orders after status filter: {orders}")  # Debug line
+
+    query = request.GET.get('query', '')
+    if query:
+        orders = orders.filter(name__icontains=query)    
+    print(f"Orders after query filter: {orders}")  # Debug line
+
+    active_status = request.GET.get('status', '')
+    
+    # Get all distinct statuses
+    statuses = Order.objects.values('status').annotate(total=Count('status'))
+    print(f"Statuses: {statuses}")  # Debug line
+
+    context = {'orders': orders, 'statuses': statuses, 'status': status, 'active_status': active_status}
+    
+    return render(request, 'Orders/show_orders.html', context)

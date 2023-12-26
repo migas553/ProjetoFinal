@@ -14,9 +14,14 @@
         {%if product.description %}
             <p class="mt-6 text-gray-700">{{ product.description }}</p>
         {%endif%}
-        <a href="{% url "add_to_cart" product.slug %}" class="mt-6 inline-block px-8 py-4 rounded-xl bg-purple-500 text-white hover:bg-purple-700">
+        {% if request.user.is_authenticated and request.user.is_staff %}
+        <a href="{% url "edit_product" product.slug %}" class="mt-6 inline-block px-8 py-4 rounded-xl bg-green-500 text-white hover:bg-green-700">
+            Editar Produto </a>
+        {% else %}
+        <a href="{% url "add_to_cart" product.slug %}" class="mt-6 inline-block px-8 py-4 rounded-xl bg-green-500 text-white hover:bg-green-700">
             Add to cart
         </a>
+        {% endif %}
     </div>
 </div>
 {% endblock %}

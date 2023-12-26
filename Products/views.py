@@ -33,14 +33,15 @@ def product(request, slug):
 
 @staff_member_required
 def add_product(request):
+    categories = Category.objects.all()
     if request.method == 'POST':
         form = AddProductForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
-            return redirect('frontpage')
+            return redirect('show_products')
     else:
         form = AddProductForm()
-    return render(request, 'Products/add_product.html', {'form': form})
+    return render(request, 'Products/add_product.html', {'form': form, 'categories': categories})
 
 @staff_member_required
 def edit_product(request, slug):
@@ -68,7 +69,7 @@ def delete_product(request, slug):
     product = get_object_or_404(Product,slug=slug)
     if request.method == 'POST':
         product.delete()
-        return redirect('frontpage')
+        return redirect('show_products')
     return render(request, 'Products/delete_product.html', {'product': product})
 
 

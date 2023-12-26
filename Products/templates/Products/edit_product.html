@@ -49,7 +49,8 @@
         </div>
 
         <div>
-            <button type="submit" class="py-4 px-6 rounded-xl text-white bg-green-500">Guardar</button>
+            <button class="py-4 px-6 rounded-xl text-white bg-green-500">Alterar</button>
+            <a href="{% url "delete_product" product.slug %}" class="py-4 px-6 rounded-xl text-white bg-red-500">Apagar</a>
         </div>
     </form>
 </div>

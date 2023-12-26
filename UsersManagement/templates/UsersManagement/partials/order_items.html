@@ -1,0 +1,22 @@
+
+<div class="product mb-6 flex pr-6" id="cart-item-{{ cart_product.product.id }}">
+    <a href="{% url 'product' cart_product.product.slug %}" class="w-1/4">
+        <img class="hover:shadow-lg rounded-xl" src="{{ cart_product.product.photo.url }}">
+    </a>
+
+    <div class="w-3/4 pl-6">
+        <div class="flex justify-between">
+            <a href="{% url 'product' cart_product.product.slug %}" class="text-lg">{{ cart_product.product.name }}</a>
+
+            <span class="mb-6 pt-1 text-gray-400">{{ cart_product.total_price }}€</span>
+        </div>
+
+        <hr>
+
+        <div class="quantity mt-6 flex items-center space-x-4">
+            <a href="{% url 'decrease_quantity' cart_product.id %}" class="text-white bg-green-500 px-3 py-1 rounded btn" style="width: 30px; text-align: center;">-</a>
+            <span>{{ cart_product.quantity }}</span>
+            <a href="{% url 'increase_quantity' cart_product.id %}" class="text-white bg-green-500 px-3 py-1 rounded btn" style="width: 30px; text-align: center; display: flex; align-items: center; justify-content: center;">+</a>
+        </div>
+    </div>
+</div>

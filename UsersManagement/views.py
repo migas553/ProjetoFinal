@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from .forms import *
+from Orders.models import *
 from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
 def SignUp(request):
@@ -22,7 +23,11 @@ def frontpage(request):
 @login_required
 def my_account(request):
     address = request.user.address.first()
-    return render(request, 'UsersManagement/my_account.html', {'address' : address})
+    orders = Order.objects.filter(user=request.user)
+    order_products = OrderProducts.objects.filter(order__in=orders)
+    
+    context = {'address' : address, 'orders' : orders, 'order_products' : order_products}
+    return render(request, 'UsersManagement/my_account.html', context)
 
 
 

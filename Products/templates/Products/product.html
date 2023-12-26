@@ -14,7 +14,7 @@
         {%if product.description %}
             <p class="mt-6 text-gray-700">{{ product.description }}</p>
         {%endif%}
-        <a href="#" class="mt-6 inline-block px-8 py-4 rounded-xl bg-purple-500 text-white hover:bg-purple-700">
+        <a href="{% url "add_to_cart" product.slug %}" class="mt-6 inline-block px-8 py-4 rounded-xl bg-purple-500 text-white hover:bg-purple-700">
             Add to cart
         </a>
     </div>

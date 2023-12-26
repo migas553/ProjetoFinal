@@ -1,0 +1,119 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="max-w-6xl mx-auto flex flex-wrap items-start py-6 px-6 xl:px-0">
+    <div class="products w-2/3 ">
+        <h1 class="mb-5 text-3xl">Checkout</h1>
+        {% if address_form.errors %}
+            {% for field in address_form %}
+                {% for error in field.errors %}
+                    <div class="p-6 bg-red-200 text-red-800 rounded-xl">
+                        <p>{{ error|escape }} - {{ field.name }}</p>
+                    </div>
+                {% endfor %}
+            {% endfor %}
+{% comment %} 
+            {% for error in form.non_field_errors %}
+                    <div class="p-6 bg-red-200 text-red-800 rounded-xl">
+                        <p>{{ error|escape }}</p>
+                    </div>
+            {% endfor %} {% endcomment %}
+        {% endif %}
+        <form method="POST">
+            {% csrf_token %}
+            <div class="w-full ">
+                <div class="mb-6 p-6 bg-gray-100 rounded-xl">
+                    <div class="flex justify-between mb-6">
+                        <h2 class="mb-5 uppercase text-lg">Informação de Envio</h2> 
+                        <a href="{% url "edit_shipping_address" order.id %}" class="inline-block px-8 py-4 rounded-xl bg-green-500 hover:bg-green-700 text-white  ml-auto">Editar morada envio</a>
+                    </div>
+
+                    <div class="flex space-x-6">
+                        <div class="w-1/2 mb-4">
+                            <label class="inline-block mb-2">Nome</label>
+                            <input type="text" class="w-full p-5 rounded-xl" name="first_name" value="{{ order.address.first_name }}">
+                        </div>
+
+                        <div class="w-1/2 mb-4">
+                            <label class="inline-block mb-2">Apelido</label>
+                            <input type="text" class="w-full p-5 rounded-xl" name="last_name" value="{{ order.address.last_name }}">
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="inline-block mb-2">Morada</label>
+                        <input type="text" class="w-full p-5 rounded-xl" name="address" value="{{ order.address.address}}">
+                    </div>
+
+
+                    <div class="flex space-x-6">
+                        <div class="w-1/2 mb-4">
+                            <label class="inline-block mb-2">Codigo Postal </label>
+                            <input type="text" class="w-full p-5 rounded-xl" name="postal_code" value="{{ order.address.postal_code}}">
+                        </div>
+
+                        <div class="w-1/2 mb-4">
+                            <label class="inline-block mb-2">Cidade</label>
+                            <input type="text" class="w-full p-5 rounded-xl" name="city" value="{{ order.address.city}}">
+                        </div>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <label class="inline-block mb-2">Nif</label>
+                        <input type="text" class="w-full p-5 rounded-xl" name="nif" value="{{ order.address.nif}}">
+                    </div>
+                </div>
+
+                <div class="mb-6 p-6 bg-gray-100 rounded-xl">
+                    <h2 class="mb-5 uppercase text-lg">Contacto</h2>
+
+                    <div class="mb-4">
+                        <label class="inline-block mb-2">E-mail</label>
+                        <input type="email" class="w-full p-5 rounded-xl" name="email" value="{{ request.user.email }}">
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="inline-block mb-2">Telefone</label>
+                        <input type="phone" class="w-full p-5 rounded-xl" name="phone" value="{{ order.address.phone}}">
+                    </div>
+                </div>
+
+            </div>
+
+        </form>
+    </div>
+
+    <div class="summary w-1/3 pl-6 ">
+        <h1 class="mb-5 text-3xl">Summary</h1>
+
+        <form method="POST">
+            {% csrf_token %}
+            <div class="w-full ">
+                <div class="mb-6 p-6 bg-gray-100 rounded-xl">
+                {% for order_product in order_products %}
+                    {% include "Orders/partials/order_items.html" %}
+                {% endfor %}      
+            
+
+            <div class="mb-6 flex justify-between">
+                <span class="font-semibold">Total</span>
+                <span>{{ order.total }} €</span>
+            </div>
+            <div class="mb-6">
+                <label class="inline-block mb-2">Tracking Number</label>
+                <input type="text" class="w-full p-5 rounded-xl" name="tracking_number" value="{{ order.tracking_number }}">
+            </div>
+            <div class="mb-6">
+                <label class="inline-block mb-2">Estado</label>
+                <select name="status" class="w-full p-5 rounded-xl">
+                    {% for status in order.STATUS_CHOICES %}
+                        <option value="{{ status.0 }}" {% if order.status == status.0 %}selected{% endif %}>{{ status.1 }}</option>
+                    {% endfor %}
+                </select>
+                <button type="submit" class="inline-block px-8 py-4  rounded-xl bg-green-500 hover:bg-green-700 text-white my-4">Alterar estado</button>
+            </div>
+        </form>
+    </div>    
+
+</div>
+{% endblock %}

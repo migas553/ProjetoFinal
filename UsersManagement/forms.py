@@ -19,8 +19,7 @@ class SignUpForm(UserCreationForm):
             'password2',
             ]
 class AddressForm(forms.ModelForm):
-    addressLine1 = forms.CharField(max_length=100, required=True, initial='')
-    addressLine2 = forms.CharField(max_length=100, required=False, initial='')
+    address = forms.CharField(max_length=100, required=True, initial='')
     postal_code = forms.CharField(max_length=8, required=True, initial='')
     city = forms.CharField(max_length=100, required=True, initial='')
     nif = forms.CharField(max_length=9, required=False, initial='')
@@ -29,8 +28,7 @@ class AddressForm(forms.ModelForm):
     class Meta:
         model = Address
         fields = [
-            'addressLine1',
-            'addressLine2',
+            'address',
             'postal_code',
             'city',
             'nif',

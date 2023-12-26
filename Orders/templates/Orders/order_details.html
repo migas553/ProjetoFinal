@@ -1,55 +1,34 @@
 {% extends 'base.html' %}
 
-{% block title %}Minha Conta{% endblock %}
+{% block title %}Detalhes encomenda{% endblock %}
 
 {% block content %}
 <div class="max-w-6xl mx-auto p-6">
-    <h1 class="mb-5 text-3xl">Minha Conta</h1>
-    <h2 class="my-6 text-xl">Dados Pessoais</h2>
-
-
-    <div class="mb-6">
-        <strong>Nome: </strong>{{ request.user.get_full_name }}<br>
-        <strong>Nome Utilizador: </strong>{{ request.user.username }}<br>
-        <strong>E-mail: </strong>{{ request.user.email }}<br>
-
-        <a href=" {% url 'edit_my_account' %} " class="inline-block mt-4 py-2 px-6 rounded-xl text-white bg-green-600">Editar conta</a>
-    </div>
-
-    <hr>
-
-    <h2 class="my-6 text-xl">Morada Entrega</h2>
-
-    {% if address %}
-
-        <div>
-            <strong>Enderesso: </strong>{{ address.address}}<br>
-            <strong>Código Postal: </strong>{{ address.postal_code }}<br>
-            <strong>Cidade: </strong>{{ address.city }}<br>
-            <strong>Nif: </strong>{{ address.nif }}<br>
-            <strong>Telefone: </strong>{{ address.phone }}<br>    
-        </div>
-
-        <a href=" {% url 'edit_my_address' %} " class="inline-block mt-4 py-2 px-6 rounded-xl text-white bg-green-600">Editar morada</a><br>
-    {% else %}
-        <p >Não tem morada de entrega definida.</p>
-        <a href=" {% url 'edit_my_address' %} " class="inline-block mt-4 py-2 px-6 rounded-xl text-white bg-green-600">Adicionar morada</a><br>
-    {% endif %}
-    <br>
-    <hr>
     
-    <h2 class="my-6 text-xl">Minhas encomendas</h2>
 
         <div class="w-full mb-6 p-6 flex flex-wrap bg-gray-100 rounded-xl">
-        {% for order in orders %}
 
 
-            <div class="mb-6 py-4 w-full">
+            <div class="mb-6 py-2 w-full">
+                <h2 class="text-2xl font-bold text-gray-800">Detalhes da encomenda</h2>
+            </div>
+            <div class="w-full">
+
+                <div class="mb-6 py-2 w-full">
+                    <p class="text-lg">Nome: {{order.user.first_name}} {{order.user.last_name}}</p>
+                    <p class="text-lg">Email: {{order.user.email}}</p>
+                    <p class="text-lg">Morada: {{order.address.address}}</p>
+                    <p class="text-lg">Código Postal: {{order.address.postal_code}}</p>
+                    <p class="text-lg">Localidade: {{order.address.city}}</p>
+                    <p class="text-lg">Telefone: {{order.address.phone}}</p>
+                </div>
+
+
                 <div class="product mb-6 flex pr-6">
 
                     <div class="w-3/4 pl-2">
                         <div class="flex justify-between">
-                            <a href="{% url "order_details" order.id %}" class="text-lg">Numero encomenda: {{order.id}} </a>
+                            <a href="#" class="text-lg">Numero encomenda: {{order.id}} </a>
 
                             <p class="mb-6 pt-1 text-gray-400">Total: {{ order.total}}€</p>
                         </div>
@@ -73,19 +52,17 @@
                     <div class="w-1/4 pl-6">
                         <p>Estado da encomenda:</p>
                         <a class="inline-block mt-4 py-2 px-6 pr-4 rounded-xl text-white bg-green-600 w-full text-center">{{order.status}}</a><br>
-                        {% if order.tracking_number %}
-                        <p class="mt-4">Numero de tracking: {{order.tracking_number}}</p>
-                        {% endif %}
                     </div>
                     
                     <hr>
 
                 </div>
-            {% if not forloop.last %}
-                <hr>
-            {% endif %}
-            {% endfor %}
-                
+                <div class="mb-6 py-2 w-full">
+                    <p class="text-lg">Data de Inicio: {{order.date_added}}</p>
+                    <p class="text-lg">Ultima Atualização: {{order.date_modified}}</p>
+                </div>
+
+
             </div>
 
         </div>

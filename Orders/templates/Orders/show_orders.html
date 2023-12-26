@@ -1,0 +1,71 @@
+<!-- FILEPATH: /c:/ProjetoFinal/Orders/templates/Orders/show_orders.html -->
+
+{% extends 'base.html' %}
+{% block title %}Encomendas{% endblock %}
+
+{% block content %}
+<div class="max-w-6xl mx-auto flex flex-wrap items-start py-6 px-6 xl:px-0">
+    <div class="w-full mb-6 p-6 bg-gray-100 rounded-xl">
+    <h1 class="mb-5 text-3xl">Encomendas</h1>
+    <p class="text-gray-500">Aqui pode ver todas as encomendas feitas pelos clientes.</p>
+    </div>
+</div>
+<div class="max-w-6xl mx-auto flex flex-wrap items-start py-6 px-6 xl:px-0">
+    <div class="filters w-full lg:w-1/4">
+        <h3 class="mb-3 text-xl uppercase">Pesquisa</h3>
+
+        <form method='get' action='.'>
+            <div class="flex">
+                <input type="text" name = 'query' class="p-4 bg-gray-100 border-0" placeholder="Search...">
+
+                <button class="p-4 bg-gray-100 border-0">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                    </svg>
+                </button>
+            </div>
+        </form>
+
+        <h3 class="mt-6 mb-3 text-xl uppercase">Estado</h3>
+
+        <ul class="space-y-2">
+            <li><a href="{% url 'show_orders' %}" class="{% if not active_status %}text-green-500{% else %}text-gray-500{% endif %}">Todas</a></li>
+        {% for status in statuses %}
+            <li><a href="{% url 'show_orders' %}?status={{status.status}}" class="{% if status.status == active_status %}text-green-500{% else %}text-gray-500{% endif %}">{{ status.status }}</a></li>
+        {% endfor %}
+
+        </ul>
+    </div>
+
+    <div class="products w-full lg:w-3/4 -mt-4 pl-6 flex items-center flex-wrap">
+        <table class="w-full bg-gray-100 rounded-xl">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Entrada</th>
+                    <th>Nome</th>
+                    <th>Estado</th>
+                    <th>Propriedades</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for order in orders %}
+                    <tr class="border-b border-gray-200">
+                        <td class="p-2">{{ order.id }}</td>
+                        <td class="p-2">{{ order.date_added }}</td>
+                        <td class="p-2">{{order.user.first_name}} {{order.user.last_name}}</td>
+                        <td class="p-2">{{ order.status }}</td>
+                        <td class="p-2">
+                            <a href="{% url "edit_order" order.id%}" class="inline-block mt-4 py-2 px-6 pr-4 rounded-xl text-white bg-green-600 w-full text-center">Edit</a>
+                        </td>
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td colspan="4" class="p-2">No orders found.</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <hr class="my-4">
+    {% endblock %}

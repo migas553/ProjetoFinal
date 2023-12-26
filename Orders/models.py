@@ -27,7 +27,8 @@ class Payment(models.Model):
     id = models.AutoField(primary_key=True)
     card_number = models.CharField(validators=[RegexValidator(r'^\d{16}$')], max_length=16, null=False)
     card_holder = models.CharField(max_length=100, null=False)
-    expiration_date = models.DateField(null=False)
+    expiration_month = models.CharField(validators=[RegexValidator(r'^\d{2}$')], max_length=2, null=False)
+    expiration_year = models.CharField(validators=[RegexValidator(r'^\d{2}$')], max_length=2, null=False)
     cvv = models.CharField(validators=[RegexValidator(r'^\d{3}$')], max_length=3, null=False)
     
     class Meta:
@@ -51,6 +52,7 @@ class Order(models.Model):
     date_added = models.DateTimeField(auto_now_add=True)
     date_modified = models.DateTimeField(auto_now=True)
     total = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
+    tracking_number = models.CharField(max_length=100, null=True)
     
     class Meta:
         verbose_name = 'Order'

@@ -4,7 +4,7 @@ from .models import Order, ShippingAddress, Payment
 class OrderForm(ModelForm):
     class Meta:
         model = Order
-        fields = ['address', 'payment']
+        fields = ['address', 'payment', 'status']
 class ShippingAddressForm(ModelForm):
     class Meta:
         model = ShippingAddress

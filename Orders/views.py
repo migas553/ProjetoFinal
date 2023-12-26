@@ -118,3 +118,20 @@ def show_orders(request):
     context = {'orders': orders, 'statuses': statuses, 'status': status, 'active_status': active_status}
     
     return render(request, 'Orders/show_orders.html', context)
+
+@login_required
+def order_details(request, order_id):
+    order = get_object_or_404(Order, id=order_id)
+    order_products = OrderProducts.objects.filter(order=order)
+    context = {'order': order, 'order_products': order_products}
+    return render(request, 'Orders/order_details.html', context)
+
+@staff_member_required
+def edit_order(request, order_id):
+    order = get_object_or_404(Order, id=order_id)
+    form = OrderForm(request.POST or None, instance=order)
+    if form.is_valid():
+        form.save()
+        return redirect('show_orders')
+    context = {'form': form}
+    return render(request, 'Orders/edit_order.html', context)

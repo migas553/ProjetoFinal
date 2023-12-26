@@ -42,9 +42,8 @@
             <thead>
                 <tr>
                     <th>ID</th>
-                    <th>Valor</th>
-                    <th>Primeiro Nome</th>
-                    <th>Segundo Name</th>
+                    <th>Entrada</th>
+                    <th>Nome</th>
                     <th>Estado</th>
                     <th>Propriedades</th>
                 </tr>
@@ -53,9 +52,8 @@
                 {% for order in orders %}
                     <tr class="border-b border-gray-200">
                         <td class="p-2">{{ order.id }}</td>
-                        <td class="p-2">{{ order.total }}€</td>
-                        <td class="p-2">{{ order.user.first_name }}</td>
-                        <td class="p-2">{{ order.user.last_name }}</td>
+                        <td class="p-2">{{ order.date_added }}</td>
+                        <td class="p-2">{{order.user.first_name}} {{order.user.last_name}}</td>
                         <td class="p-2">{{ order.status }}</td>
                         <td class="p-2">
                             <a href="#" class="inline-block mt-4 py-2 px-6 pr-4 rounded-xl text-white bg-green-600 w-full text-center">Edit</a>

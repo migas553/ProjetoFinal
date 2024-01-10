@@ -73,7 +73,7 @@ def add_to_cart(request, product_slug):
         cart_product.quantity += 1
         cart_product.save()
 
-    return redirect('product', slug=product_slug)
+    return redirect('cart')
 
 @login_required
 def increase_quantity(request, cart_product_id):

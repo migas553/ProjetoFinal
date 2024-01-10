@@ -3,6 +3,8 @@ from django.contrib.auth.models import User
 from Products.models import Product
 from UsersManagement.models import Address
 from django.core.validators import RegexValidator
+from datetime import datetime, timedelta
+from django.core.exceptions import ValidationError
 
 class ShippingAddress(models.Model):
     first_name = models.CharField(max_length=100, null=False)
@@ -34,7 +36,12 @@ class Payment(models.Model):
     class Meta:
         verbose_name = 'Payment'
         verbose_name_plural = 'Payments'
-        
+    def clean(self):
+        super().clean()
+        expiry_date = datetime.strptime(f'{self.expiration_year}-{self.expiration_month}-01', '%y-%m-%d')
+        last_day_of_expiry_month = expiry_date.replace(month=expiry_date.month%12+1, day=1) - timedelta(days=1)
+        if last_day_of_expiry_month.date() < datetime.now().date():
+            raise ValidationError("The credit card has expired.")    
     def __str__(self):
         return str(self.id)
 class Order(models.Model):

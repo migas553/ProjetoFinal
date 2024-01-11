@@ -3,6 +3,8 @@ from .forms import *
 from Orders.models import *
 from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
+
 def SignUp(request):
     if request.method == 'POST':
         form = SignUpForm(request.POST)
@@ -33,20 +35,24 @@ def my_account(request):
 
 
 
-
 @login_required
 def edit_my_account(request):
+    error_message = None
     if request.method =='POST':
-        
         user = request.user
         user.first_name = request.POST.get('first_name')
         user.last_name = request.POST.get('last_name')
-        user.username = request.POST.get('username')
-        user.email = request.POST.get('email')
-        user.save()
-        return redirect('my_account')
+        username = request.POST.get('username')
+        if User.objects.filter(username=username).exclude(pk=user.pk).exists():
+            error_message = "Utilizador já existe."
+        else:
+            user.username = username
+            user.email = request.POST.get('email')
+            user.save()
+            return redirect('my_account')
         
-    return render(request, 'UsersManagement/edit_my_account.html')
+    return render(request, 'UsersManagement/edit_my_account.html', {'error_message': error_message})
+
 
 
 @login_required

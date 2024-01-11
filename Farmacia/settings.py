@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     'Products',
     'UsersManagement',
     'Orders',
+    'Info',
+    
 
 ]
 

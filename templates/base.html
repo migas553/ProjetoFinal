@@ -23,12 +23,12 @@
                         {% endif %}
                         {% if request.user.is_authenticated and request.user.is_staff %}
                             <li><a href="{% url 'show_products' %}" 
-                                class= "inline-block px-4 py-2 rounded-xl bg-green-400 text-white hover:bg-gray-200"
+                                class= "inline-block px-4 py-2 rounded-xl bg-green-400 text-white hover:bg-green-500"
                                 >Editar Produtos</a></li>
                         {% endif %}
                         {% if request.user.is_authenticated and request.user.is_staff %}
                             <li><a href="{% url 'show_orders' %}" 
-                                class= "inline-block px-4 py-2 rounded-xl bg-green-400 text-white hover:bg-gray-200"
+                                class= "inline-block px-4 py-2 rounded-xl bg-green-400 text-white hover:bg-green-500"
                                 >Ver encomendas</a></li>
                         {% endif %}
                     </ul>
@@ -38,7 +38,7 @@
                     {% if request.user.is_authenticated %}
                         <form action="{% url 'logout' %}" method="post">
                             {% csrf_token %}
-                            <button type="submit" class="py-4 text-lg text-green-400">Sair</button>
+                            <button type="submit" class="py-4 text-lg text-green-400 hover:text-green-500">Sair</button>
                         </form>
                     {% endif %}
 
@@ -72,10 +72,9 @@
                 <div class="footer-left mb-12 md:mb-0">
                     <h2 class="mb-5 uppercase text-lg">Informação</h2>
                     <ul>  
-                        <li><a href="#" class="text-gray-700 hover:text-green-800">Sobre nós</a></li>
-                        <li><a href="#" class="text-gray-700 hover:text-green-800">Envio e entregas</a></li>
-                        <li><a href="#" class="text-gray-700 hover:text-green-800">Pagamento e segurança</a></li>
-                        <li><a href="#" class="text-gray-700 hover:text-green-800">Contacte-nos</a></li>
+                        <li><a href="#" class="text-gray-700 hover:text-green-500">Sobre nós</a></li>
+                        <li><a href="#" class="text-gray-700 hover:text-green-500">Envio e entregas</a></li>
+                        <li><a href="#" class="text-gray-700 hover:text-green-500">Pagamento e segurança</a></li>
                     </ul>    
                 </div>
 
@@ -85,7 +84,13 @@
                     <ul class="space-y-2">
                         <li><a href="#" class="text-green-400 hover:text-green-500">+351 916 098 582</a></li>
                         <li><a href="#" class="text-green-400 hover:text-green-500">clickfarma@gmail.com</a></li>
-                        <li><a href="#" class="text-green-400 hover:text-green-500">Instagram</a></li>
+                        <li><div class="row">
+                            <div class="coluna">
+                              <img src="https://farmaciadamisericordia.pt/wp-content/themes/yootheme/cache/95/WhatsApp-Image-2023-07-25-at-17.25.29-1-955d9f8a.png"/>
+                            </div>
+                            <div class="coluna">
+                              <img src="https://farmaciadamisericordia.pt/wp-content/themes/yootheme/cache/56/WhatsApp-Image-2023-07-25-at-17.25.29-56e58288.png"/>
+                            </div></li>
                     </ul>
                 </div>
             </div>

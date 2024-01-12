@@ -19,7 +19,7 @@
         </div>
 
         <div>
-            <a href="javascript:history.back()" class="py-4 px-6 rounded-xl text-white bg-green-500">Voltar</a>
+            <a href="javascript:history.back()" class="py-4 px-6 rounded-xl text-white bg-green-400">Voltar</a>
             <form method="post" action="{% url 'delete_category' category.slug %}" class="inline">
                 {% csrf_token %}
                 <button type="submit" class="py-4 px-6 rounded-xl text-white bg-red-500">Apagar</button>

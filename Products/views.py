@@ -48,7 +48,7 @@ def edit_product(request, slug):
     product = get_object_or_404(Product,slug=slug)
     categories = Category.objects.all()
     if request.method == 'POST':
-        form = AddProductForm(request.POST, instance=product)
+        form = AddProductForm(request.POST, request.FILES, instance=product)
         if form.is_valid():
             form.save()
             return redirect('show_products')

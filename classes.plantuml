@@ -2,74 +2,97 @@
 
 class Product{
     id  PK
-    Name : string
+    name : string
+    slug : string
     Category : FK
-    Description : string
-    price : decimal
+    description : string
+    price : decimal{0.2}
     stock : int
     photo: img
     timestamp: date
-    sort()
-    list()    
-    stock : int 
-    Crud()
-    ListProducts()
-    Sort()
+
+    }
 
 class Category{
     id: PK
+    slug: string
     name: string
 }
+class ShippingAddress{
+    id : PK
+    user : FK
+    address : string
+    city : string
+    postal_code : regex {d4-d3}
+    phone : regex {d9}  
+    nif : regex {d9}
+}
 
-class Client{
+class Address{
+    id : PK
+    user : FK
+    address : string
+    city : string
+    postal_code : regex {d4-d3}
+    phone : regex {d9}  
+    nif : regex {d9}
+}
+class User{
     id: PK
-    name: string
+    first_name: string
+    last_name: string
     email: string
-    nif: int
-    order: FK
-    
+    password: hash    
 }
 class Order{
     id: PK
-    State: list
-    Traking: int
-    Adress: str
+    User: FK
+    ShippingAdress: FK
+    status: list
+    Payment: FK
+    date_added: date
+    date_modified: date
+    traking: int
+    total: decimal{0.2}
     
 }
-class ClientOrder{
-    Client: FK
+class OrderProducts{
     Order: FK
+    Product: FK
+    quantity: int
 }
 
 class Cart{
-    id: PK
-    idUser: FK
-    Product: FK
-    Quantity: int
+    User: FK
+    CartProduct: FK
+    total: decimal{0.2} 
 }
-
 class CartProduct{
-    idCart: FK
-    idProduct: FK
+    Cart: FK
+    Product: FK
+    quantity: int
 }
 
 class Payment{
     id: PK
-    idOrder: FK
-    cardNumber: int
-    expDate: date
+    card_number: int
+    card_holder: string
+    expiration_month: int{2}
+    expiration_year: int{2}
     cvv: int
-    cardName: str
 
 } 
 
-Order "1" -- "*" Payment
-Product "1" -- "n" CartProduct
+Order "1" -- "1" Payment
+Product "1" -- "n" OrderProducts
+Order "1" -- "n" OrderProducts
 Product "n" -- "1" Category
 Cart "1" -- "n" CartProduct
-Cart "1" -- "n" Client
-Client "1" -- "n" ClientOrder
-ClientOrder "1" -- "n" Order
+Product "1" -- "n" CartProduct
+Cart "1" -- "1" User
+User "1" -- "n" Order
+User "1" -- "1" Address
+Order "1" -- "1" ShippingAddress
 
 @enduml
 

@@ -10,5 +10,5 @@ def shipping(request):
 def payment(request):
     return render(request, 'info/payment.html')
 
-def conbact(request):
-    return render(request, 'info/conbact.html') 
+def contact(request):
+    return render(request, 'info/contact.html') 
